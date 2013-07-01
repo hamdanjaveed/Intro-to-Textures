@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Hamdan Javeed. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <GLKit/GLKit.h>
 
-@interface TextureViewController : UIViewController
+@interface TextureViewController : GLKViewController
+
+@property (strong, nonatomic) GLKBaseEffect *baseEffect;
 
 @end

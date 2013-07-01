@@ -21,6 +21,11 @@
 		AC70F3D6178125B7008B033E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC70F3B8178125B7008B033E /* UIKit.framework */; };
 		AC70F3DE178125B7008B033E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC70F3DC178125B7008B033E /* InfoPlist.strings */; };
 		AC70F3E0178125B7008B033E /* Intro_to_TexturesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC70F3DF178125B7008B033E /* Intro_to_TexturesTests.m */; };
+		AC70F3EC1781261E008B033E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC70F3EA1781261E008B033E /* GLKit.framework */; };
+		AC70F3ED1781261E008B033E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC70F3EB1781261E008B033E /* OpenGLES.framework */; };
+		AC70F3EF17812623008B033E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC70F3EE17812623008B033E /* QuartzCore.framework */; };
+		AC70F3F217812646008B033E /* AGLKContext.m in Sources */ = {isa = PBXBuildFile; fileRef = AC70F3F117812646008B033E /* AGLKContext.m */; };
+		AC70F3F81781266E008B033E /* AGLKVertexBufferObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AC70F3F51781266E008B033E /* AGLKVertexBufferObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,13 @@
 		AC70F3DB178125B7008B033E /* Intro to TexturesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Intro to TexturesTests-Info.plist"; sourceTree = "<group>"; };
 		AC70F3DD178125B7008B033E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC70F3DF178125B7008B033E /* Intro_to_TexturesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Intro_to_TexturesTests.m; sourceTree = "<group>"; };
+		AC70F3EA1781261E008B033E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		AC70F3EB1781261E008B033E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		AC70F3EE17812623008B033E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AC70F3F017812646008B033E /* AGLKContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGLKContext.h; path = "Intro to Textures/AGLKContext.h"; sourceTree = "<group>"; };
+		AC70F3F117812646008B033E /* AGLKContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGLKContext.m; path = "Intro to Textures/AGLKContext.m"; sourceTree = "<group>"; };
+		AC70F3F41781266E008B033E /* AGLKVertexBufferObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexBufferObject.h; sourceTree = "<group>"; };
+		AC70F3F51781266E008B033E /* AGLKVertexBufferObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexBufferObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC70F3EF17812623008B033E /* QuartzCore.framework in Frameworks */,
+				AC70F3EC1781261E008B033E /* GLKit.framework in Frameworks */,
+				AC70F3ED1781261E008B033E /* OpenGLES.framework in Frameworks */,
 				AC70F3B7178125B7008B033E /* CoreGraphics.framework in Frameworks */,
 				AC70F3B9178125B7008B033E /* UIKit.framework in Frameworks */,
 				AC70F3B5178125B7008B033E /* Foundation.framework in Frameworks */,
@@ -82,6 +97,7 @@
 		AC70F3A8178125B7008B033E = {
 			isa = PBXGroup;
 			children = (
+				AC70F3F31781264B008B033E /* AGLK */,
 				AC70F3BA178125B7008B033E /* Intro to Textures */,
 				AC70F3D9178125B7008B033E /* Intro to TexturesTests */,
 				AC70F3B3178125B7008B033E /* Frameworks */,
@@ -101,6 +117,9 @@
 		AC70F3B3178125B7008B033E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC70F3EE17812623008B033E /* QuartzCore.framework */,
+				AC70F3EA1781261E008B033E /* GLKit.framework */,
+				AC70F3EB1781261E008B033E /* OpenGLES.framework */,
 				AC70F3B4178125B7008B033E /* Foundation.framework */,
 				AC70F3B6178125B7008B033E /* CoreGraphics.framework */,
 				AC70F3B8178125B7008B033E /* UIKit.framework */,
@@ -152,6 +171,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AC70F3F31781264B008B033E /* AGLK */ = {
+			isa = PBXGroup;
+			children = (
+				AC70F3F41781266E008B033E /* AGLKVertexBufferObject.h */,
+				AC70F3F51781266E008B033E /* AGLKVertexBufferObject.m */,
+				AC70F3F017812646008B033E /* AGLKContext.h */,
+				AC70F3F117812646008B033E /* AGLKContext.m */,
+			);
+			name = AGLK;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,6 +189,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC70F3E3178125B7008B033E /* Build configuration list for PBXNativeTarget "Intro to Textures" */;
 			buildPhases = (
+				AC70F3E9178125F5008B033E /* ShellScript */,
 				AC70F3AD178125B7008B033E /* Sources */,
 				AC70F3AE178125B7008B033E /* Frameworks */,
 				AC70F3AF178125B7008B033E /* Resources */,
@@ -245,12 +276,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AC70F3E9178125F5008B033E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AC70F3AD178125B7008B033E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC70F3F217812646008B033E /* AGLKContext.m in Sources */,
 				AC70F3C5178125B7008B033E /* TextureAppDelegate.m in Sources */,
+				AC70F3F81781266E008B033E /* AGLKVertexBufferObject.m in Sources */,
 				AC70F3C1178125B7008B033E /* main.m in Sources */,
 				AC70F3CB178125B7008B033E /* TextureViewController.m in Sources */,
 			);
