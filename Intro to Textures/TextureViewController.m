@@ -17,16 +17,17 @@
 @implementation TextureViewController
 
 typedef struct {
-    GLKVector3 position;
+    GLKVector3 positionCoords;
+    GLKVector2 textureCoords;
 } SceneVertex;
 
 static const SceneVertex vertices[] = {
     // lower left corner
-    {{-0.5f, -0.5f, 0.0f}},
+    {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f}},
     // lower right corner
-    {{ 0.5f, -0.5f, 0.0f}},
+    {{ 0.5f, -0.5f, 0.0f}, {1.0f, 0.0f}},
     // upper left corner
-    {{-0.5f,  0.5f, 0.0f}}
+    {{-0.5f,  0.5f, 0.0f}, {0.0f, 1.0f}}
 };
 
 - (AGLKVertexBufferObject *)triangleVBO {
@@ -61,6 +62,14 @@ static const SceneVertex vertices[] = {
     
     // set the background color
     [((AGLKContext *)view.context) setClearColor:GLKVector4Make(0.0f, 0.0f, 0.0f, 0.0f)];
+    
+    // setup the wood texture
+    GLKTextureInfo *woodTexInfo = [GLKTextureLoader textureWithCGImage:[[UIImage imageNamed:@"wood.png"] CGImage]
+                                                               options:nil
+                                                                 error:nil];
+    
+    [self.baseEffect.texture2d0 setName:woodTexInfo.name];
+    [self.baseEffect.texture2d0 setTarget:woodTexInfo.target];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
@@ -72,7 +81,11 @@ static const SceneVertex vertices[] = {
     
     [self.triangleVBO prepareToDrawWithAttribute:GLKVertexAttribPosition
                              numberOfCoordinates:sizeof(vertices) / sizeof(vertices[0])
-                              offsetOfFirstIndex:0
+                              offsetOfFirstIndex:offsetof(SceneVertex, positionCoords)
+                  andShouldEnableVertexAttribute:YES];
+    [self.triangleVBO prepareToDrawWithAttribute:GLKVertexAttribTexCoord0
+                             numberOfCoordinates:2
+                              offsetOfFirstIndex:offsetof(SceneVertex, textureCoords)
                   andShouldEnableVertexAttribute:YES];
     
     [self.triangleVBO drawArrayWithMode:GL_TRIANGLES

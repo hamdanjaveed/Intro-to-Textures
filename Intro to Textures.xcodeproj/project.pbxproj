@@ -26,6 +26,7 @@
 		AC70F3EF17812623008B033E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC70F3EE17812623008B033E /* QuartzCore.framework */; };
 		AC70F3F217812646008B033E /* AGLKContext.m in Sources */ = {isa = PBXBuildFile; fileRef = AC70F3F117812646008B033E /* AGLKContext.m */; };
 		AC70F3F81781266E008B033E /* AGLKVertexBufferObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AC70F3F51781266E008B033E /* AGLKVertexBufferObject.m */; };
+		AC70F3FB178137FC008B033E /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = AC70F3FA178137FC008B033E /* wood.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		AC70F3F117812646008B033E /* AGLKContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGLKContext.m; path = "Intro to Textures/AGLKContext.m"; sourceTree = "<group>"; };
 		AC70F3F41781266E008B033E /* AGLKVertexBufferObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexBufferObject.h; sourceTree = "<group>"; };
 		AC70F3F51781266E008B033E /* AGLKVertexBufferObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexBufferObject.m; sourceTree = "<group>"; };
+		AC70F3FA178137FC008B033E /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				AC70F3C6178125B7008B033E /* Main.storyboard */,
 				AC70F3C9178125B7008B033E /* TextureViewController.h */,
 				AC70F3CA178125B7008B033E /* TextureViewController.m */,
+				AC70F3FA178137FC008B033E /* wood.png */,
 				AC70F3CC178125B7008B033E /* Images.xcassets */,
 				AC70F3BB178125B7008B033E /* Supporting Files */,
 			);
@@ -260,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC70F3FB178137FC008B033E /* wood.png in Resources */,
 				AC70F3CD178125B7008B033E /* Images.xcassets in Resources */,
 				AC70F3BF178125B7008B033E /* InfoPlist.strings in Resources */,
 				AC70F3C8178125B7008B033E /* Main.storyboard in Resources */,
