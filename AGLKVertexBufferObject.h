@@ -28,4 +28,8 @@
          startVertexIndex:(GLint)firstIndex
       andNumberOfVertices:(GLsizei)numberOfVertices;
 
+- (void)reInitWithStride:(GLsizeiptr)stride
+        numberOfVertices:(GLsizei)numberOfVertices
+                 andData:(const GLvoid *)dataPtr;
+
 @end

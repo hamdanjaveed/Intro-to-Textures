@@ -74,6 +74,23 @@
     glDrawArrays(mode, firstIndex, numberOfVertices);
 }
 
+- (void)reInitWithStride:(GLsizeiptr)paramStride
+        numberOfVertices:(GLsizei)numberOfVertices
+                 andData:(const GLvoid *)dataPtr {
+    
+    // check the parameters
+    NSParameterAssert(paramStride > 0);
+    NSParameterAssert(numberOfVertices > 0);
+    NSParameterAssert(dataPtr != nil);
+    NSAssert(name != 0, @"Invalid name");
+    
+    stride = paramStride;
+    bufferSizeInBytes = paramStride * numberOfVertices;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, name);
+    glBufferData(GL_ARRAY_BUFFER, bufferSizeInBytes, dataPtr, GL_DYNAMIC_DRAW);
+}
+
 - (void)dealloc {
     if (name != 0) {
         glDeleteBuffers(1, &name);

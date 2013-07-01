@@ -9,9 +9,20 @@
 #import "TextureViewController.h"
 #import "AGLKVertexBufferObject.h"
 #import "AGLKContext.h"
+#import "GLKEffectPropertyTexture+AGLKAddition.h"
 
-@interface TextureViewController ()
+@interface TextureViewController()
 @property (strong, nonatomic) AGLKVertexBufferObject *triangleVBO;
+
+@property (nonatomic) BOOL shouldUseLinearFilter;
+@property (nonatomic) BOOL shouldAnimate;
+@property (nonatomic) BOOL shouldRepeatTexture;
+@property (nonatomic) GLfloat sCoordinateOffset;
+
+- (IBAction)updatedSCoordinateOffset:(UISlider *)sender;
+- (IBAction)updatedAnimateState:(UISwitch *)sender;
+- (IBAction)updatedLinearFilterState:(UISwitch *)sender;
+- (IBAction)updatedRepeatFilterState:(UISwitch *)sender;
 @end
 
 @implementation TextureViewController
@@ -21,7 +32,7 @@ typedef struct {
     GLKVector2 textureCoords;
 } SceneVertex;
 
-static const SceneVertex vertices[] = {
+static SceneVertex vertices[] = {
     // lower left corner
     {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f}},
     // lower right corner
@@ -30,18 +41,37 @@ static const SceneVertex vertices[] = {
     {{-0.5f,  0.5f, 0.0f}, {0.0f, 1.0f}}
 };
 
+static const SceneVertex defaultVertices[] = {
+    // lower left corner
+    {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f}},
+    // lower right corner
+    {{ 0.5f, -0.5f, 0.0f}, {1.0f, 0.0f}},
+    // upper left corner
+    {{-0.5f,  0.5f, 0.0f}, {0.0f, 1.0f}}
+};
+
+static GLKVector3 movementVectors[3] = {
+    {-0.02f,  -0.01f, 0.0f},
+    {0.01f,  -0.005f, 0.0f},
+    {-0.01f,   0.01f, 0.0f},
+};
+
 - (AGLKVertexBufferObject *)triangleVBO {
     if (!_triangleVBO) {
         _triangleVBO = [[AGLKVertexBufferObject alloc] initWithStride:sizeof(SceneVertex)
                                                      numberOfVertices:sizeof(vertices) / sizeof(vertices[0])
                                                                  data:vertices
-                                                             andUsage:GL_STATIC_DRAW];
+                                                             andUsage:GL_DYNAMIC_DRAW];
     }
     return _triangleVBO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setPreferredFramesPerSecond:60];
+    [self setShouldAnimate:YES];
+    [self setShouldRepeatTexture:YES];
     
     // get our view and make sure it's a GLKView
     GLKView *view = (GLKView *)self.view;
@@ -104,4 +134,67 @@ static const SceneVertex vertices[] = {
     [AGLKContext setCurrentContext:nil];
 }
 
+- (void)updateTextureParameters {
+    [self.baseEffect.texture2d0 aglkSetParameter:GL_TEXTURE_WRAP_S
+                                       withValue:(self.shouldRepeatTexture) ? GL_REPEAT : GL_CLAMP_TO_EDGE];
+    
+    [self.baseEffect.texture2d0 aglkSetParameter:GL_TEXTURE_MAG_FILTER
+                                       withValue:(self.shouldUseLinearFilter) ? GL_LINEAR : GL_NEAREST];
+}
+
+- (void)updateAnimatedVertexPositions {
+    if(self.shouldAnimate) {
+        for(int i = 0; i < 3; i++) {
+            vertices[i].positionCoords.x += movementVectors[i].x;
+            if(vertices[i].positionCoords.x >= 1.0f || vertices[i].positionCoords.x <= -1.0f) {
+                movementVectors[i].x = -movementVectors[i].x;
+            }
+            
+            vertices[i].positionCoords.y += movementVectors[i].y;
+            if(vertices[i].positionCoords.y >= 1.0f || vertices[i].positionCoords.y <= -1.0f) {
+                movementVectors[i].y = -movementVectors[i].y;
+            }
+            
+            vertices[i].positionCoords.z += movementVectors[i].z;
+            if(vertices[i].positionCoords.z >= 1.0f || vertices[i].positionCoords.z <= -1.0f) {
+                movementVectors[i].z = -movementVectors[i].z;
+            }
+        }
+    } else {
+        for(int i = 0; i < 3; i++) {
+            vertices[i].positionCoords.x = defaultVertices[i].positionCoords.x;
+            vertices[i].positionCoords.y = defaultVertices[i].positionCoords.y;
+            vertices[i].positionCoords.z = defaultVertices[i].positionCoords.z;
+        }
+    }
+    
+    for(int i = 0; i < 3; i++) {
+        vertices[i].textureCoords.s = (defaultVertices[i].textureCoords.s + self.sCoordinateOffset);
+    }
+}
+
+- (void)update {
+    [self updateAnimatedVertexPositions];
+    [self updateTextureParameters];
+    
+    [self.triangleVBO reInitWithStride:sizeof(SceneVertex)
+                      numberOfVertices:sizeof(vertices) / sizeof(vertices[0])
+                               andData:vertices];
+}
+
+- (IBAction)updatedSCoordinateOffset:(UISlider *)sender {
+    [self setSCoordinateOffset:[sender value]];
+}
+
+- (IBAction)updatedAnimateState:(UISwitch *)sender {
+    [self setShouldAnimate:[sender isOn]];
+}
+
+- (IBAction)updatedLinearFilterState:(UISwitch *)sender {
+    [self setShouldUseLinearFilter:[sender isOn]];
+}
+
+- (IBAction)updatedRepeatFilterState:(UISwitch *)sender {
+    [self setShouldRepeatTexture:[sender isOn]];
+}
 @end
